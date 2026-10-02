@@ -1,0 +1,123 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-02T00:00:00.000Z",
+  "__export_source": "opencode",
+  "resources": [
+    {
+      "_id": "wrk_otus_social_network",
+      "parentId": null,
+      "modified": 1,
+      "created": 1,
+      "name": "OTUS Social Network",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_otus_social_network",
+      "parentId": "wrk_otus_social_network",
+      "modified": 1,
+      "created": 1,
+      "name": "Base environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "user_id": "",
+        "token": ""
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url", "user_id", "token"]
+      },
+      "color": null,
+      "isPrivate": false,
+      "_type": "environment"
+    },
+    {
+      "_id": "req_register_user",
+      "parentId": "wrk_otus_social_network",
+      "modified": 1,
+      "created": 1,
+      "url": "{{ _.base_url }}/user/register",
+      "name": "Register user",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"first_name\": \"Иван\",\n  \"second_name\": \"Иванов\",\n  \"birthdate\": \"1990-05-15\",\n  \"biography\": \"Хобби, интересы и т.п.\",\n  \"city\": \"Москва\",\n  \"gender\": \"male\",\n  \"password\": \"Секретная строка\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_register_content_type"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -100,
+      "isPrivate": false,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "script": {
+        "request": "",
+        "response": "const body = insomnia.response.json();\ninsomnia.environment.set('user_id', body.user_id);"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_login",
+      "parentId": "wrk_otus_social_network",
+      "modified": 1,
+      "created": 1,
+      "url": "{{ _.base_url }}/login",
+      "name": "Login",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"id\": \"{{ _.user_id }}\",\n  \"password\": \"Секретная строка\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_login_content_type"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -75,
+      "isPrivate": false,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "script": {
+        "request": "",
+        "response": "const body = insomnia.response.json();\ninsomnia.environment.set('token', body.token);"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_user_by_id",
+      "parentId": "wrk_otus_social_network",
+      "modified": 1,
+      "created": 1,
+      "url": "{{ _.base_url }}/user/get/{{ _.user_id }}",
+      "name": "Get user by id",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}",
+        "prefix": "Bearer"
+      },
+      "metaSortKey": -50,
+      "isPrivate": false,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+	"info": {
+		"name": "OTUS Social Network",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	],
+	"item": [
+		{
+			"name": "Register user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"pm.collectionVariables.set('userId', body.user_id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": "{{baseUrl}}/user/register",
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Иван\",\n  \"second_name\": \"Иванов\",\n  \"birthdate\": \"1990-05-15\",\n  \"biography\": \"Хобби, интересы и т.п.\",\n  \"city\": \"Москва\",\n  \"gender\": \"male\",\n  \"password\": \"Секретная строка\"\n}"
+				}
+			}
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"pm.collectionVariables.set('token', body.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": "{{baseUrl}}/login",
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"{{userId}}\",\n  \"password\": \"Секретная строка\"\n}"
+				}
+			}
+		},
+		{
+			"name": "Get user by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": "{{baseUrl}}/user/get/{{userId}}"
+			}
+		}
+	]
+}

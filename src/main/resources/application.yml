@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:15432/socialnetwork}
+    username: ${DB_USER:sn_user}
+    password: ${DB_PASSWORD:sn_password}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+server:
+  port: ${PORT:8080}
