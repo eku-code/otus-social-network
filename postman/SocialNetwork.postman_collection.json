@@ -84,7 +84,41 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"url": "{{baseUrl}}/user/get/{{userId}}"
+				"url": {
+					"raw": "{{baseUrl}}/user/get/{{userId}}",
+					"host": ["{{baseUrl}}"],
+					"path": ["user", "get", "{{userId}}"]
+				}
+			}
+		},
+		{
+			"name": "Search users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/user/search?first_name=Конст&last_name=Оси",
+					"host": ["{{baseUrl}}"],
+					"path": ["user", "search"],
+					"query": [
+						{
+							"key": "first_name",
+							"value": "Конст",
+							"description": "Часть имени для поиска (префикс)"
+						},
+						{
+							"key": "last_name",
+							"value": "Оси",
+							"description": "Часть фамилии для поиска (префикс)"
+						}
+					]
+				},
+				"description": "Поиск анкет по префиксу имени и фамилии, сортировка по id анкеты"
 			}
 		}
 	]

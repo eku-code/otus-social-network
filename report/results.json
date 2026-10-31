@@ -1,0 +1,130 @@
+[
+  {
+    "label": "before",
+    "concurrency": 1,
+    "duration_s": 20,
+    "requests": 438,
+    "throughput_rps": 21.9,
+    "latency_ms": {
+      "min": 35.06,
+      "mean": 45.7,
+      "p50": 43.18,
+      "p95": 64.12,
+      "p99": 85.8,
+      "max": 104.68
+    },
+    "errors": {}
+  },
+  {
+    "label": "before",
+    "concurrency": 10,
+    "duration_s": 20,
+    "requests": 930,
+    "throughput_rps": 46.5,
+    "latency_ms": {
+      "min": 98.16,
+      "mean": 215.83,
+      "p50": 210.29,
+      "p95": 320.81,
+      "p99": 372.63,
+      "max": 432.72
+    },
+    "errors": {}
+  },
+  {
+    "label": "before",
+    "concurrency": 100,
+    "duration_s": 20,
+    "requests": 1076,
+    "throughput_rps": 53.8,
+    "latency_ms": {
+      "min": 163.5,
+      "mean": 1955.41,
+      "p50": 1995.01,
+      "p95": 2758.23,
+      "p99": 3005.2,
+      "max": 4129.31
+    },
+    "errors": {}
+  },
+  {
+    "label": "before",
+    "concurrency": 1000,
+    "duration_s": 20,
+    "requests": 2002,
+    "throughput_rps": 100.1,
+    "latency_ms": {
+      "min": 186.0,
+      "mean": 14571.92,
+      "p50": 18336.97,
+      "p95": 19992.25,
+      "p99": 20289.0,
+      "max": 22503.9
+    },
+    "errors": {}
+  },
+  {
+    "label": "after",
+    "concurrency": 1,
+    "duration_s": 20,
+    "requests": 3902,
+    "throughput_rps": 195.1,
+    "latency_ms": {
+      "min": 1.43,
+      "mean": 5.11,
+      "p50": 3.98,
+      "p95": 11.77,
+      "p99": 19.23,
+      "max": 109.95
+    },
+    "errors": {}
+  },
+  {
+    "label": "after",
+    "concurrency": 10,
+    "duration_s": 20,
+    "requests": 13510,
+    "throughput_rps": 675.5,
+    "latency_ms": {
+      "min": 4.07,
+      "mean": 14.8,
+      "p50": 13.28,
+      "p95": 27.27,
+      "p99": 38.74,
+      "max": 109.36
+    },
+    "errors": {}
+  },
+  {
+    "label": "after",
+    "concurrency": 100,
+    "duration_s": 20,
+    "requests": 12981,
+    "throughput_rps": 649.0,
+    "latency_ms": {
+      "min": 6.73,
+      "mean": 154.57,
+      "p50": 149.73,
+      "p95": 255.92,
+      "p99": 331.38,
+      "max": 575.05
+    },
+    "errors": {}
+  },
+  {
+    "label": "after",
+    "concurrency": 1000,
+    "duration_s": 20,
+    "requests": 14724,
+    "throughput_rps": 736.2,
+    "latency_ms": {
+      "min": 28.55,
+      "mean": 1412.73,
+      "p50": 1419.97,
+      "p95": 1722.02,
+      "p99": 1860.05,
+      "max": 2601.37
+    },
+    "errors": {}
+  }
+]

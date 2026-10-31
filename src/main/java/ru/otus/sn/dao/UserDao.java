@@ -61,6 +61,27 @@ public class UserDao {
         return rows.stream().findFirst();
     }
 
+    public List<UserResponseRow> searchByPrefix(String firstNamePrefix, String secondNamePrefix) {
+        return jdbc.query(
+                "SELECT id, first_name, second_name, birthdate, biography, city, gender FROM users "
+                        + "WHERE first_name LIKE ? ESCAPE '\\' AND second_name LIKE ? ESCAPE '\\' "
+                        + "ORDER BY id",
+                (rs, rowNum) -> new UserResponseRow(
+                        rs.getObject("id", UUID.class).toString(),
+                        rs.getString("first_name"),
+                        rs.getString("second_name"),
+                        rs.getObject("birthdate") == null ? null : rs.getDate("birthdate").toString(),
+                        rs.getString("biography"),
+                        rs.getString("city"),
+                        rs.getString("gender")),
+                escapeLike(firstNamePrefix) + "%",
+                escapeLike(secondNamePrefix) + "%");
+    }
+
+    private String escapeLike(String s) {
+        return s.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
+    }
+
     public record UserResponseRow(
             String id,
             String firstName,

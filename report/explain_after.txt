@@ -1,0 +1,19 @@
+                                                                                             QUERY PLAN                                                                                              
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=113.46..113.51 rows=18 width=105) (actual time=0.506..0.507 rows=27 loops=1)
+   Sort Key: id
+   Sort Method: quicksort  Memory: 27kB
+   Buffers: shared hit=22 read=7
+   ->  Bitmap Heap Scan on users  (cost=46.43..113.09 rows=18 width=105) (actual time=0.122..0.462 rows=27 loops=1)
+         Filter: (((first_name)::text ~~ 'Конст%'::text) AND ((second_name)::text ~~ 'Оси%'::text))
+         Heap Blocks: exact=19
+         Buffers: shared hit=19 read=7
+         ->  Bitmap Index Scan on idx_users_second_first_name_pattern  (cost=0.00..46.43 rows=17 width=0) (actual time=0.079..0.079 rows=27 loops=1)
+               Index Cond: (((second_name)::text ~>=~ 'Оси'::text) AND ((second_name)::text ~<~ 'Осй'::text) AND ((first_name)::text ~>=~ 'Конст'::text) AND ((first_name)::text ~<~ 'Консу'::text))
+               Buffers: shared read=7
+ Planning:
+   Buffers: shared hit=191 read=4
+ Planning Time: 0.907 ms
+ Execution Time: 0.546 ms
+(15 rows)
+

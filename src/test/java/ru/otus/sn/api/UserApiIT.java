@@ -168,6 +168,41 @@ class UserApiIT extends IntegrationTestBase {
                 .andExpect(jsonPath("$.message").value("invalid uuid"));
     }
 
+    @Test
+    void searchShouldReturnMatchingUsersSortedById() throws Exception {
+        String token = login(registerUser());
+
+        mockMvc.perform(get("/user/search")
+                        .param("first_name", "Ива")
+                        .param("last_name", "Ива")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].first_name").value("Иван"))
+                .andExpect(jsonPath("$[0].second_name").value("Иванов"));
+    }
+
+    @Test
+    void searchShouldFailWithBlankParams() throws Exception {
+        String token = login(registerUser());
+
+        mockMvc.perform(get("/user/search")
+                        .param("first_name", "")
+                        .param("last_name", "Ива")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("first_name and last_name are required"));
+    }
+
+    @Test
+    void searchShouldFailWithoutToken() throws Exception {
+        mockMvc.perform(get("/user/search")
+                        .param("first_name", "Ива")
+                        .param("last_name", "Ива"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.message").value("unauthorized"));
+    }
+
     private String registerUser() throws Exception {
         String body = mockMvc.perform(post("/user/register")
                         .contentType(MediaType.APPLICATION_JSON)

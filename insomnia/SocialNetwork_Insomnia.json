@@ -118,6 +118,42 @@
       "settingRebuildPath": true,
       "settingFollowRedirects": "global",
       "_type": "request"
+    },
+    {
+      "_id": "req_search_users",
+      "parentId": "wrk_otus_social_network",
+      "modified": 1,
+      "created": 1,
+      "url": "{{ _.base_url }}/user/search?first_name=Конст&last_name=Оси",
+      "name": "Search users",
+      "description": "Поиск анкет по префиксу имени и фамилии, сортировка по id анкеты",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "first_name",
+          "value": "Конст",
+          "id": "pair_search_first_name",
+          "description": "Часть имени для поиска (префикс)"
+        },
+        {
+          "name": "last_name",
+          "value": "Оси",
+          "id": "pair_search_last_name",
+          "description": "Часть фамилии для поиска (префикс)"
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}",
+        "prefix": "Bearer"
+      },
+      "metaSortKey": -25,
+      "isPrivate": false,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
     }
   ]
 }

@@ -10,6 +10,7 @@ import ru.otus.sn.exception.ApiError;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -54,6 +55,15 @@ public class UserService {
         return userDao.findById(userId)
                 .map(this::toResponse)
                 .orElseThrow(() -> new ApiError(404, "user not found"));
+    }
+
+    public List<UserResponse> search(String firstName, String secondName) {
+        if (isBlank(firstName) || isBlank(secondName)) {
+            throw new ApiError(400, "first_name and last_name are required");
+        }
+        return userDao.searchByPrefix(firstName, secondName).stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     private void validate(RegisterRequest req) {

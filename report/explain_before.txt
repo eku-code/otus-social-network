@@ -1,0 +1,22 @@
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ Gather Merge  (cost=24516.71..24518.58 rows=16 width=105) (actual time=67.368..72.695 rows=27 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=16232 read=1107
+   ->  Sort  (cost=23516.69..23516.71 rows=8 width=105) (actual time=62.248..62.249 rows=9 loops=3)
+         Sort Key: id
+         Sort Method: quicksort  Memory: 26kB
+         Buffers: shared hit=16232 read=1107
+         Worker 0:  Sort Method: quicksort  Memory: 25kB
+         Worker 1:  Sort Method: quicksort  Memory: 26kB
+         ->  Parallel Seq Scan on users  (cost=0.00..23516.57 rows=8 width=105) (actual time=59.712..62.100 rows=9 loops=3)
+               Filter: (((first_name)::text ~~ 'Конст%'::text) AND ((second_name)::text ~~ 'Оси%'::text))
+               Rows Removed by Filter: 333301
+               Buffers: shared hit=16160 read=1107
+ Planning:
+   Buffers: shared hit=102 read=24
+ Planning Time: 1.510 ms
+ Execution Time: 72.756 ms
+(18 rows)
+

@@ -5,11 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.otus.sn.dto.RegisterRequest;
 import ru.otus.sn.dto.UserIdResponse;
 import ru.otus.sn.dto.UserResponse;
 import ru.otus.sn.service.UserService;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -29,5 +32,12 @@ public class UserController {
     @GetMapping("/user/get/{id}")
     public ResponseEntity<UserResponse> get(@PathVariable String id) {
         return ResponseEntity.ok(userService.getById(id));
+    }
+
+    @GetMapping("/user/search")
+    public ResponseEntity<List<UserResponse>> search(
+            @RequestParam("first_name") String firstName,
+            @RequestParam("last_name") String lastName) {
+        return ResponseEntity.ok(userService.search(firstName, lastName));
     }
 }
