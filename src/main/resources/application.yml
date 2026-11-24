@@ -6,5 +6,10 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
+app:
+  datasource:
+    # Список JDBC URL слейвов через запятую; readOnly-транзакции маршрутизируются туда (round-robin).
+    replica-urls: ${REPLICA_URLS:}
+
 server:
   port: ${PORT:8080}

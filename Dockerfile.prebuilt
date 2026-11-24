@@ -1,0 +1,10 @@
+# Runtime-only образ из локально собранного jar (target/social-network.jar).
+# Основной Dockerfile выполняет полную сборку внутри Docker; этот вариант
+# используется для быстрых пересборок при локальных итерациях.
+# Сборка: mvn -s maven.settings.xml clean package -DskipTests
+#         docker build -f Dockerfile.prebuilt -t social-network-app .
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY target/social-network.jar ./social-network.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "social-network.jar"]

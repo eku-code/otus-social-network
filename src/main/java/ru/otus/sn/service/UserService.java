@@ -2,6 +2,7 @@ package ru.otus.sn.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.sn.dao.TokenDao;
 import ru.otus.sn.dao.UserDao;
 import ru.otus.sn.dto.RegisterRequest;
@@ -50,6 +51,7 @@ public class UserService {
         return token;
     }
 
+    @Transactional(readOnly = true)
     public UserResponse getById(String id) {
         UUID userId = parseUuid(id);
         return userDao.findById(userId)
@@ -57,6 +59,7 @@ public class UserService {
                 .orElseThrow(() -> new ApiError(404, "user not found"));
     }
 
+    @Transactional(readOnly = true)
     public List<UserResponse> search(String firstName, String secondName) {
         if (isBlank(firstName) || isBlank(secondName)) {
             throw new ApiError(400, "first_name and last_name are required");

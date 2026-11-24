@@ -72,6 +72,31 @@ mvn -s settings.xml spring-boot:run
 - `DB_PASSWORD` = `sn_password`
 - `PORT` = `8080`
 
+## Репликация (ДЗ «Репликация»)
+
+Отдельный стенд `docker-compose.replication.yml`: мастер + 2 слейва с потоковой
+(физической) репликацией PostgreSQL 16 и приложением с маршрутизацией запросов:
+`@Transactional(readOnly = true)` -> слейвы (round-robin), записи -> мастер
+(`ReplicationRoutingDataSource`, подробнее — в `report/replication/README.md`).
+
+```bash
+docker compose -f docker-compose.replication.yml up -d --build   # стенд
+./scripts/load_data.sh                                           # ~1M анкет
+
+# режимы приложения:
+docker compose -f docker-compose.replication.yml up -d --force-recreate --no-build app            # чтение со слейвов (по умолчанию)
+REPLICA_URLS="" docker compose -f docker-compose.replication.yml up -d --force-recreate --no-build app  # всё на мастере
+
+./scripts/sync-replication.sh on|off        # кворумная синхронная репликация ANY 2
+./scripts/transaction-loss-experiment.sh    # эксперимент потери транзакций при kill мастера
+PROMOTE_SLAVE=db-slave2 OTHER_SLAVE=db-slave1 ./scripts/failover.sh   # полный failover
+
+python3 scripts/read_load_test.py --token <t> --user-id <id> \
+  --endpoint mix --concurrency 100 --duration 30 --label master+2-slaves   # нагрузочный тест чтения
+```
+
+Отчёт с результатами замеров и экспериментов: `report/replication/README.md`.
+
 ## Проверка
 
 Импортируйте Postman-коллекцию `postman/SocialNetwork.postman_collection.json`.

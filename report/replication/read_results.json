@@ -1,0 +1,122 @@
+[
+  {
+    "label": "master-only",
+    "endpoint": "mix",
+    "concurrency": 1,
+    "duration_s": 30,
+    "requests": 4273,
+    "throughput_rps": 142.4,
+    "latency_ms": {
+      "min": 1.97,
+      "mean": 7.01,
+      "p50": 4.77,
+      "p95": 19.87,
+      "p99": 33.52,
+      "max": 72.01
+    },
+    "errors": {
+      "get:200": 2136,
+      "search:200": 2137
+    }
+  },
+  {
+    "label": "master-only",
+    "endpoint": "mix",
+    "concurrency": 10,
+    "duration_s": 30,
+    "requests": 10160,
+    "throughput_rps": 338.7,
+    "latency_ms": {
+      "min": 3.22,
+      "mean": 29.55,
+      "p50": 26.43,
+      "p95": 60.47,
+      "p99": 99.14,
+      "max": 206.71
+    },
+    "errors": {
+      "get:200": 5077,
+      "search:200": 5083
+    }
+  },
+  {
+    "label": "master-only",
+    "endpoint": "mix",
+    "concurrency": 100,
+    "duration_s": 30,
+    "requests": 10762,
+    "throughput_rps": 358.7,
+    "latency_ms": {
+      "min": 26.1,
+      "mean": 280.39,
+      "p50": 259.35,
+      "p95": 470.4,
+      "p99": 682.29,
+      "max": 1018.09
+    },
+    "errors": {
+      "get:200": 5352,
+      "search:200": 5410
+    }
+  },
+  {
+    "label": "master+2-slaves",
+    "endpoint": "mix",
+    "concurrency": 1,
+    "duration_s": 30,
+    "requests": 4587,
+    "throughput_rps": 152.9,
+    "latency_ms": {
+      "min": 2.11,
+      "mean": 6.53,
+      "p50": 4.9,
+      "p95": 15.78,
+      "p99": 23.43,
+      "max": 84.58
+    },
+    "errors": {
+      "get:200": 2293,
+      "search:200": 2294
+    }
+  },
+  {
+    "label": "master+2-slaves",
+    "endpoint": "mix",
+    "concurrency": 10,
+    "duration_s": 30,
+    "requests": 9548,
+    "throughput_rps": 318.3,
+    "latency_ms": {
+      "min": 3.3,
+      "mean": 31.43,
+      "p50": 27.63,
+      "p95": 68.52,
+      "p99": 105.08,
+      "max": 226.62
+    },
+    "errors": {
+      "get:200": 4771,
+      "search:200": 4777
+    }
+  },
+  {
+    "label": "master+2-slaves",
+    "endpoint": "mix",
+    "concurrency": 100,
+    "duration_s": 30,
+    "requests": 11129,
+    "throughput_rps": 371.0,
+    "latency_ms": {
+      "min": 32.89,
+      "mean": 271.72,
+      "p50": 250.73,
+      "p95": 459.89,
+      "p99": 683.15,
+      "max": 1043.1
+    },
+    "errors": {
+      "get:200": 5531,
+      "search:200": 5598
+    }
+  }
+]

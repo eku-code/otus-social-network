@@ -1,0 +1,15 @@
+{
+  "description": "Дельты pg_stat_database (xact_commit / tup_returned) за прогон read-нагрузки (mix get+search, ~29.5K запросов вкл. warmup, уровни 1/10/100 по 30с)",
+  "master-only": {
+    "db-master": {"xact_commit": 57725, "tup_returned": 3539914},
+    "db-slave1": {"xact_commit": 54, "tup_returned": 902},
+    "db-slave2": {"xact_commit": 54, "tup_returned": 902},
+    "comment": "весь трафик чтения на мастере, слейвы простаивают (только healthcheck)"
+  },
+  "master+2-slaves": {
+    "db-master": {"xact_commit": 29313, "tup_returned": 32631},
+    "db-slave1": {"xact_commit": 14778, "tup_returned": 1980050},
+    "db-slave2": {"xact_commit": 14758, "tup_returned": 1376216},
+    "comment": "тяжелые чтения (миллионы строк) ушли на слейвы и разделены round-robin 50/50; на мастере остались только однорядные auth-lookup транзакции (~1 строка на транзакцию)"
+  }
+}
